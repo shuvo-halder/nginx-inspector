@@ -99,6 +99,7 @@ echo "7. Bandwidth Usage"
 echo "8. SQL Injection Detection"
 echo "9. XSS Detection"
 echo "10. Bot Detection"
+echo "11. Run Attack Detection"
 echo "0. Exit"
 
 echo
@@ -115,6 +116,7 @@ case $choice in
 8) sql_injection ;;
 9) xss_attack ;;
 10) bot_requests ;;
+11) ./attack-detector.sh "$LOGFILE" ;;
 0) exit ;;
 *) echo "Invalid option" ;;
 esac
