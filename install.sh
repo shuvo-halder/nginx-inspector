@@ -4,6 +4,9 @@ INSTALL_DIR="/usr/local/nginx-inspector"
 
 echo "Installing nginx-inspector..."
 
+sudo rm -rf $INSTALL_DIR
+sudo rm -rf /etc/systemd/system/nginx-inspector.service
+
 sudo mkdir -p $INSTALL_DIR
 
 sudo cp -r bin $INSTALL_DIR/
@@ -16,7 +19,19 @@ sudo cp bin/nginx-inspector /usr/local/bin/
 sudo chmod +x /usr/local/bin/nginx-inspector
 sudo chmod +x $INSTALL_DIR/bin/*.sh
 
+if ! command -v python3 &> /dev/null; then
+    echo "Python3 not found. Installing..."
+    sudo apt update
+    sudo apt install -y python3
+fi
+if ! command -v pip3 &> /dev/null; then
+    echo "pip3 not found. Installing..."
+    sudo apt update
+    sudo apt install -y python3-pip
+fi
+
 echo "Installing Python dependencies..."
+pip3 install --upgrade pip
 pip3 install -r requirements.txt
 
 sudo systemctl daemon-reload
