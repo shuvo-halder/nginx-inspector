@@ -1,0 +1,50 @@
+#!/bin/bash
+INSTALL_DIR="/usr/local/nginx-inspector"
+
+case "$1" in
+
+start)
+  sudo systemctl start nginx-inspector
+  ;;
+
+stop)
+  sudo systemctl stop nginx-inspector
+  ;;
+
+restart)
+  sudo systemctl restart nginx-inspector
+  ;;
+
+status)
+  sudo systemctl status nginx-inspector
+  ;;
+
+analyze)
+  bash $INSTALL_DIR/bin/nginx-inspector.sh $2
+  ;;
+
+attack)
+  bash $INSTALL_DIR/bin/attack-detector.sh $2
+  ;;
+
+api)
+  echo "Starting API server..."
+  python3 $INSTALL_DIR/api/api-server.py
+  ;;
+
+web)
+  echo "Opening Web Dashboard..."
+  xdg-open $INSTALL_DIR/web/dashboard.html
+  ;;
+
+*)
+  echo "Usage:"
+  echo "nginx-inspector start         # start service"
+  echo "nginx-inspector stop          # stop service"
+  echo "nginx-inspector status        # service status"
+  echo "nginx-inspector analyze <logfile>"
+  echo "nginx-inspector attack <logfile>"
+  echo "nginx-inspector api           # run API server"
+  echo "nginx-inspector web           # open dashboard"
+  ;;
+esac
