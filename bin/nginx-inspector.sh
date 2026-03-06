@@ -7,41 +7,61 @@ fi
 
 while true
 do
-  echo "========= NGINX INSPECTOR ========="
-  echo "1. Top IP Analysis"
-  echo "2. Top URL Analysis"
-  echo "3. Status Code Analysis"
-  echo "4. Run Attack Detection"
-  echo "5. Real-time Monitor"
-  echo "6. Generate JSON Report"
-  echo "0. Exit"
+    clear
+    echo -e "${CYAN}================ NGINX INSPECTOR =================${NC}"
+    echo -e "${YELLOW}1)${NC} Top IP Analysis"
+    echo -e "${YELLOW}2)${NC} Top URL Analysis"
+    echo -e "${YELLOW}3)${NC} Status Code Analysis"
+    echo -e "${YELLOW}4)${NC} Run Attack Detection"
+    echo -e "${YELLOW}5)${NC} Real-time Monitor"
+    echo -e "${YELLOW}6)${NC} Generate JSON Report"
+    echo -e "${YELLOW}0)${NC} Exit"
+    echo -e "${CYAN}===================================================${NC}"
 
-  read -p "Enter option: " option
+    read -p "Enter option: " option
 
-  case $option in
-    1)
-      awk '{print $1}' $LOGFILE | sort | uniq -c | sort -nr | head
-      ;;
-    2)
-      awk '{print $7}' $LOGFILE | sort | uniq -c | sort -nr | head
-      ;;
-    3)
-      awk '{print $9}' $LOGFILE | sort | uniq -c | sort -nr
-      ;;
-    4)
-      bash attack-detector.sh $LOGFILE
-      ;;
-    5)
-      bash realtime-monitor.sh $LOGFILE
-      ;;
-    6)
-      bash json-report.sh $LOGFILE
-      ;;
-    0)
-      exit
-      ;;
-    *)
-      echo "Invalid option"
-      ;;
-  esac
+    case $option in
+        1)
+            echo -e "${BLUE}Running Top IP Analysis...${NC}"
+            progress_bar 20
+            awk '{print $1}' $1 | sort | uniq -c | sort -nr | head
+            read -p "Press Enter to continue..."
+            ;;
+        2)
+            echo -e "${BLUE}Running Top URL Analysis...${NC}"
+            progress_bar 20
+            awk '{print $7}' $1 | sort | uniq -c | sort -nr | head
+            read -p "Press Enter to continue..."
+            ;;
+        3)
+            echo -e "${BLUE}Running Status Code Analysis...${NC}"
+            progress_bar 15
+            awk '{print $9}' $1 | sort | uniq -c | sort -nr
+            read -p "Press Enter to continue..."
+            ;;
+        4)
+            echo -e "${RED}Running Attack Detection...${NC}"
+            progress_bar 25
+            bash attack-detector.sh $1
+            read -p "Press Enter to continue..."
+            ;;
+        5)
+            echo -e "${CYAN}Starting Real-time Monitor... Press CTRL+C to stop${NC}"
+            bash realtime-monitor.sh $1
+            ;;
+        6)
+            echo -e "${GREEN}Generating JSON Report...${NC}"
+            progress_bar 10
+            bash json-report.sh $1
+            read -p "Press Enter to continue..."
+            ;;
+        0)
+            echo -e "${YELLOW}Exiting...${NC}"
+            exit
+            ;;
+        *)
+            echo -e "${RED}Invalid Option!${NC}"
+            read -p "Press Enter to continue..."
+            ;;
+    esac
 done
