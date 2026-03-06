@@ -1,4 +1,8 @@
+
 # Nginx Inspector
+![Bash](https://img.shields.io/badge/Bash-Script-green)
+![Linux](https://img.shields.io/badge/Platform-Linux-blue)
+![License](https://img.shields.io/badge/License-MIT-yellow)
 
 **Nginx Inspector** is a simple CLI tool that analyzes Nginx access logs.
 It helps developers and system administrators quickly understand traffic, errors, and possible attacks.
@@ -50,11 +54,10 @@ Move into the project folder:
 cd nginx-inspector
 ```
 
-Make scripts executable:
+Simple run this command:
 
 ```
-chmod +x nginx-inspector.sh
-chmod +x attack-detector.sh
+bash install.sh
 ```
 
 ---
@@ -64,7 +67,7 @@ chmod +x attack-detector.sh
 Run the main analyzer:
 
 ```
-./nginx-inspector.sh /var/log/nginx/access.log
+nginx-inspector start
 ```
 
 The script will show a menu.
@@ -76,41 +79,45 @@ Example:
 1 → Top IP analysis
 2 → Top URL analysis
 3 → Status code analysis
+4 → Run Attack Detection
+5 → Real-time Monitor
+6 → Generate JSON Report
+
 ```
 
 ---
 
-# Attack Detection
+Log Analyze
 
-You can run the security analyzer separately:
+You can run the analyzer separately:
 
 ```
-./attack-detector.sh /var/log/nginx/access.log
+nginx-inspector analyze /var/log/nginx/access.log
 ```
 
 This script scans logs for common web attacks and suspicious behavior.
 
 ---
 
-# Example Output
+Attack Detection
+
+You can run the security analyzer separately:
 
 ```
-Top 10 IP Addresses
-1200 192.168.1.10
-900  192.168.1.25
-
-Top Requested URLs
-/index.html
-/login
-/api/products
-
-Possible SQL Injection Attempts
-5
-
-Possible XSS Attempts
-2
+nginx-inspector attack /var/log/nginx/access.log
 ```
 
+Web Interface
+
+```
+nginx-inspector web
+```
+
+JSON API
+
+```
+nginx-inspector api
+```
 
 
 
