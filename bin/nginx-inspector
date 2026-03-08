@@ -6,11 +6,11 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 CYAN='\033[0;36m'
-NC='\033[0m' # No Color
+NC='\033[0m'
 
 INSTALL_DIR="/usr/local/nginx-inspector"
 
-# Function for progress bar
+
 progress_bar() {
     local duration=$1
     already_done() { for ((done=0; done<$elapsed; done++)); do printf "▓"; done }

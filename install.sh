@@ -31,7 +31,6 @@ if ! command -v pip3 &> /dev/null; then
 fi
 
 echo "Installing Python dependencies..."
-pip3 install --upgrade pip
 pip3 install -r requirements.txt
 
 sudo systemctl daemon-reload
