@@ -55,7 +55,7 @@ attack)
 
 api)
   echo "Starting API server..."
-  python3 $INSTALL_DIR/api/api-server.py
+  $INSTALL_DIR/venv/bin/python $INSTALL_DIR/api/api-server.py
   ;;
 
 web)

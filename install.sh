@@ -1,6 +1,7 @@
 #!/bin/bash
 
 INSTALL_DIR="/usr/local/nginx-inspector"
+VENV_DIR="$INSTALL_DIR/venv"
 
 echo "Installing nginx-inspector..."
 
@@ -30,8 +31,13 @@ if ! command -v pip3 &> /dev/null; then
     sudo apt install -y python3-pip
 fi
 
+sudo apt install python3-venv
+
+sudo python3 -m venv $VENV_DIR
+
 echo "Installing Python dependencies..."
-pip3 install -r requirements.txt
+sudo $VENV_DIR/bin/pip install --upgrade pip
+sudo $VENV_DIR/bin/pip install -r requirements.txt
 
 sudo systemctl daemon-reload
 sudo systemctl enable nginx-inspector
