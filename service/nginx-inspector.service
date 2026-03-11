@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/local/nginx-inspector/start.sh
+ExecStart=/usr/local/nginx-inspector/nginx-inspector
 Restart=always
 User=root
 
